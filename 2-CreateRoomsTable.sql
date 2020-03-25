@@ -1,0 +1,1 @@
+CREATE TABLE rooms (id INTEGER PRIMARY KEY, roomNumber INTEGER);
