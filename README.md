@@ -4,6 +4,7 @@ PatientTracker is a lightweight application for patient assignment and occupatio
 
 
 REQUIRED DOWNLOADS
+
 SQLite: Download Command Line Tools bundle for your platform - https://www.sqlite.org/download.html
 JDBC: Download latest .jar file from the repository and set as a module dependency in your IDE - https://bitbucket.org/xerial/sqlite-jdbc/downloads/
 
