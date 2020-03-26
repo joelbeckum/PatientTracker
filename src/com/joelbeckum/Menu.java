@@ -55,14 +55,6 @@ public class Menu {
     }
 
     private void printMenu() {
-//        System.out.println("\nAvailable actions: \npress");
-//        System.out.println("1 - to assign a patient to a room\n" +
-//                           "2 - to remove a patient from a room\n" +
-//                           "3 - to assign a nurse to a room\n" +
-//                           "4 - to remove a nurse from a room\n" +
-//                           "5 - to display available rooms\n" +
-//                           "6 - to print a list of available actions\n" +
-//                           "7 - to exit the application");
         System.out.println("Available actions: \npress");
         System.out.println("1 - to assign a patient to a room");
         System.out.println("2 - to remove a patient from a room");
