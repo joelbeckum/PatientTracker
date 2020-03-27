@@ -12,24 +12,24 @@ import java.util.Properties;
 
 public class Repository {
 
-    private String getConnectionString() {
+    private String getConnectionString() throws IOException {
 
-        try (InputStream input = new FileInputStream("./config.properties")) {
+        try (InputStream input = new FileInputStream("C:\\Users\\kille\\Documents\\PatientTracker\\src\\resources\\config.properties")) {
 
             Properties prop = new Properties();
 
             prop.load(input);
 
-            return prop.getProperty("db.connectionString");
-
+           return prop.getProperty("db.connectionString");
 
         } catch(IOException e) {
             e.printStackTrace();
+            throw e;
         }
-        return null;
+
     }
 
-    public List<Nurse> getNurses() {
+    public List<Nurse> getNurses() throws IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement =  conn.createStatement();
              ResultSet results = statement.executeQuery("SELECT * FROM nurses ORDER BY name ASC")) {
@@ -37,15 +37,16 @@ public class Repository {
             List<Nurse> nurses = new ArrayList<>();
 
             while(results.next()) {
-                Nurse nurse = new Nurse;
+                Nurse nurse = new Nurse();
 
                 nurse.setId(results.getInt(1));
                 nurse.setName(results.getString(2));
             }
 
             return nurses;
-        } catch(SQLException e) {
+        } catch(IOException | SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
+            throw e;
         }
     }
 }
