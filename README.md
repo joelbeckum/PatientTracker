@@ -9,7 +9,7 @@ SQLite: Download Command Line Tools bundle for your platform - https://www.sqlit
 
 JDBC: Download latest .jar file from the repository and set as a module dependency in your IDE - https://bitbucket.org/xerial/sqlite-jdbc/downloads/
 
-To initialize database: Navigate to PatientTracker root folder and enter sqlite3 to run SQLite. Enter each script in the "migrations" folder.
+To initialize database: Navigate to PatientTracker root folder and enter sqlite3 patient_tracker.db to run SQLite and initialize the database. Enter each script in the "migrations" folder.
 
 
 USAGE INSTRUCTIONS
