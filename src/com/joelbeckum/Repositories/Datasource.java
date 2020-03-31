@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class Repository {
+public class Datasource {
 
     private String getConnectionString() throws IOException {
 
@@ -47,6 +47,16 @@ public class Repository {
         } catch(IOException | SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
             throw e;
+        }
+    }
+
+    public void addNurse() {
+        try (Connection conn = DriverManager.getConnection(getConnectionString());
+             Statement statement = conn.createStatement()) {
+
+            statement.execute("INSERT INTO nurses(name) VALUES('TestNurse1')");
+        } catch(IOException | SQLException e) {
+            System.out.println("Record addition unsuccessful: " + e.getMessage());
         }
     }
 }
