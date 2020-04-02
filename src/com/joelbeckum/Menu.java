@@ -2,12 +2,15 @@ package com.joelbeckum;
 
 import com.joelbeckum.Repositories.Datasource;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Menu {
 
     public void launchUserMenu() {
         Scanner input = new Scanner(System.in);
+        Datasource datasource = new Datasource();
         boolean shouldExit = false;
         System.out.println("Welcome to PatientTracker!");
         printMenu();
@@ -40,8 +43,7 @@ public class Menu {
                     break;
 
                 case 5:
-                    Datasource ds = new Datasource();
-                    ds.addNurse();
+                    datasource.addNurse();
                     break;
 
                 case 6:
@@ -61,6 +63,17 @@ public class Menu {
                     break;
 
                 case 10:
+                    try {
+                        System.out.println("Nurses on record:");
+                        for (Nurse nurse : datasource.getNurses()) {
+                            System.out.println(nurse.getName());
+                        }
+                    } catch(IOException | SQLException e) {
+                        System.out.println("Query failed: " + e.getMessage());
+                }
+                    break;
+
+                case 11:
                     System.out.println("Thank you for using PatientTracker!");
                     shouldExit = true;
                     break;
@@ -86,6 +99,7 @@ public class Menu {
         System.out.println("7 - to add a patient to the database");
         System.out.println("8 - to remove a patient from the database");
         System.out.println("9 - to display available rooms");
-        System.out.println("10 - to exit the application");
+        System.out.println("10 - to display a list of nurses");
+        System.out.println("11 - to exit the application");
     }
 }
