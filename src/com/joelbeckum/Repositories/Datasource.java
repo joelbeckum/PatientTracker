@@ -41,8 +41,8 @@ public class Datasource {
 
                 nurse.setId(results.getInt(1));
                 nurse.setName(results.getString(2));
+                nurses.add(nurse);
             }
-
             return nurses;
         } catch(IOException | SQLException e) {
             System.out.println("Query failed: " + e.getMessage());
