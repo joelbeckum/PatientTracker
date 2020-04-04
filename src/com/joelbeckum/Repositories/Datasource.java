@@ -11,10 +11,8 @@ import java.util.List;
 import java.util.Properties;
 
 public class Datasource {
-
     private String getConnectionString() throws IOException {
-
-        try (InputStream input = new FileInputStream("C:\\Users\\kille\\Documents\\PatientTracker\\src\\resources\\config.properties")) {
+        try (InputStream input = new FileInputStream("./src/resources/config.properties")) {
 
             Properties prop = new Properties();
 
@@ -23,16 +21,14 @@ public class Datasource {
            return prop.getProperty("db.connectionString");
 
         } catch(IOException e) {
-            e.printStackTrace();
             throw e;
         }
-
     }
 
     public List<Nurse> getNurses() throws IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement =  conn.createStatement();
-             ResultSet results = statement.executeQuery("SELECT * FROM nurses ORDER BY name ASC")) {
+             ResultSet results = statement.executeQuery("SELECT id, name FROM nurses ORDER BY name ASC")) {
 
             List<Nurse> nurses = new ArrayList<>();
 
@@ -45,18 +41,17 @@ public class Datasource {
             }
             return nurses;
         } catch(IOException | SQLException e) {
-            System.out.println("Query failed: " + e.getMessage());
             throw e;
         }
     }
 
-    public void addNurse() {
+    public void addNurse() throws IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement()) {
 
             statement.execute("INSERT INTO nurses(name) VALUES('TestNurse1')");
         } catch(IOException | SQLException e) {
-            System.out.println("Record addition unsuccessful: " + e.getMessage());
+            throw e;
         }
     }
 }

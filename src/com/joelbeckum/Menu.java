@@ -43,8 +43,13 @@ public class Menu {
                     break;
 
                 case 5:
-                    datasource.addNurse();
-                    break;
+                    try {
+                        datasource.addNurse();
+                        break;
+                    } catch(IOException | SQLException e) {
+                        System.out.println("Record addition unsuccessful:");
+                        e.printStackTrace();
+                    }
 
                 case 6:
                     System.out.println("Placeholder text for removing a nurse from the database");
@@ -69,8 +74,9 @@ public class Menu {
                             System.out.println(nurse.getName());
                         }
                     } catch(IOException | SQLException e) {
-                        System.out.println("Query failed: " + e.getMessage());
-                }
+                        System.out.println("Query failed:");
+                        e.printStackTrace();
+                    }
                     break;
 
                 case 11:
