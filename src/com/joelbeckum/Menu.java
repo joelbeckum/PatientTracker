@@ -64,10 +64,26 @@ public class Menu {
                     break;
 
                 case 9:
+                    try {
+                        System.out.println("Enter room number to add to the database");
+
+                        int roomInput = input.nextInt();
+                        input.nextLine();
+                        datasource.addRoom(roomInput);
+                        break;
+                    } catch(IOException | SQLException e) {
+                        System.out.println("Room addition unsuccessful");
+                        e.printStackTrace();
+                    }
+
+
+
+
+                case 10:
                     System.out.println("Placeholder text for displaying available rooms");
                     break;
 
-                case 10:
+                case 11:
                     try {
                         System.out.println("Nurses on record:");
                         for (Nurse nurse : datasource.getNurses()) {
@@ -79,7 +95,7 @@ public class Menu {
                     }
                     break;
 
-                case 11:
+                case 12:
                     System.out.println("Thank you for using PatientTracker!");
                     shouldExit = true;
                     break;
@@ -104,8 +120,9 @@ public class Menu {
         System.out.println("6 - to remove a nurse from the database");
         System.out.println("7 - to add a patient to the database");
         System.out.println("8 - to remove a patient from the database");
-        System.out.println("9 - to display available rooms");
-        System.out.println("10 - to display a list of nurses");
-        System.out.println("11 - to exit the application");
+        System.out.println("9 - to add a room to the database");
+        System.out.println("10 - to display available rooms");
+        System.out.println("11 - to display a list of nurses");
+        System.out.println("12 - to exit the application");
     }
 }
