@@ -70,6 +70,9 @@ public class Menu {
                         int roomInput = input.nextInt();
                         input.nextLine();
                         datasource.addRoom(roomInput);
+                        if(datasource.addRoom(roomInput) == false) {
+                            System.out.println("Room " + roomInput + " is already in the system");
+                        }
                         break;
                     } catch(IOException | SQLException e) {
                         System.out.println("Room addition unsuccessful");

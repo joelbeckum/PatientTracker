@@ -55,15 +55,16 @@ public class Datasource {
         }
     }
 
-    public void addRoom(int roomNumber) throws IOException, SQLException {
+    public boolean addRoom(int roomNumber) throws IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement();
              ResultSet results = statement.executeQuery("SELECT roomNumber FROM rooms WHERE roomNumber = " + roomNumber)) {
 
             if(results.next() == false) {
                 statement.execute("INSERT INTO rooms(roomNumber) Values(" + roomNumber + ")");
+                return true;
             } else {
-                System.out.println("Room " + roomNumber + " is already in the system");
+                return false;
             }
         } catch(IOException | SQLException e) {
             throw e;
