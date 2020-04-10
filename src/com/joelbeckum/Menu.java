@@ -45,11 +45,11 @@ public class Menu {
                 case 5:
                     try {
                         datasource.addNurse();
-                        break;
                     } catch(IOException | SQLException e) {
                         System.out.println("Record addition unsuccessful:");
                         e.printStackTrace();
                     }
+                    break;
 
                 case 6:
                     System.out.println("Placeholder text for removing a nurse from the database");
@@ -68,19 +68,14 @@ public class Menu {
                         System.out.println("Enter room number to add to the database");
 
                         int roomInput = input.nextInt();
-                        input.nextLine();
                         datasource.addRoom(roomInput);
-                        if(datasource.addRoom(roomInput) == false) {
-                            System.out.println("Room " + roomInput + " is already in the system");
-                        }
-                        break;
                     } catch(IOException | SQLException e) {
                         System.out.println("Room addition unsuccessful");
                         e.printStackTrace();
+                    } catch(Exception e) {
+                        System.out.println("Room addition unsuccessful: " + e.getMessage());
                     }
-
-
-
+                    break;
 
                 case 10:
                     System.out.println("Placeholder text for displaying available rooms");
