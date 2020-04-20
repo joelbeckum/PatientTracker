@@ -43,27 +43,15 @@ public class Menu {
                     break;
 
                 case 5:
-                    try {
-                        datasource.addNurse();
-                    } catch(IOException | SQLException e) {
-                        System.out.println("Record addition unsuccessful:");
-                        e.printStackTrace();
-                    }
+                    NurseMenu nm = new NurseMenu();
+                    nm.launchNurseMenu();
                     break;
 
                 case 6:
-                    System.out.println("Placeholder text for removing a nurse from the database");
+                    System.out.println("launchPatientMenu method will go here");
                     break;
 
                 case 7:
-                    System.out.println("Placeholder text for adding a patient to the database");
-                    break;
-
-                case 8:
-                    System.out.println("Placeholder text for removing a patient from the database");
-                    break;
-
-                case 9:
                     try {
                         System.out.println("Enter room number to add to the database");
 
@@ -77,23 +65,11 @@ public class Menu {
                     }
                     break;
 
-                case 10:
+                case 8:
                     System.out.println("Placeholder text for displaying available rooms");
                     break;
 
-                case 11:
-                    try {
-                        System.out.println("Nurses on record:");
-                        for (Nurse nurse : datasource.getNurses()) {
-                            System.out.println(nurse.getName());
-                        }
-                    } catch(IOException | SQLException e) {
-                        System.out.println("Query failed:");
-                        e.printStackTrace();
-                    }
-                    break;
-
-                case 12:
+                case 9:
                     System.out.println("Thank you for using PatientTracker!");
                     shouldExit = true;
                     break;
@@ -114,13 +90,10 @@ public class Menu {
         System.out.println("2 - to remove a patient from a room");
         System.out.println("3 - to assign a nurse to a room");
         System.out.println("4 - to remove a nurse from a room");
-        System.out.println("5 - to add a nurse to the database");
-        System.out.println("6 - to remove a nurse from the database");
-        System.out.println("7 - to add a patient to the database");
-        System.out.println("8 - to remove a patient from the database");
-        System.out.println("9 - to add a room to the database");
-        System.out.println("10 - to display available rooms");
-        System.out.println("11 - to display a list of nurses");
-        System.out.println("12 - to exit the application");
+        System.out.println("5 - add, remove, or display nurses in the database");
+        System.out.println("6 - to add, remove, update, or display patients in the database");
+        System.out.println("7 - to add room to the database");
+        System.out.println("8 - to display available rooms");
+        System.out.println("9 - to exit the application");
     }
 }
