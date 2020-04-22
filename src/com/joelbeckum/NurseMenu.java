@@ -27,10 +27,16 @@ public class NurseMenu {
 
                 case 1:
                     try {
-                        datasource.addNurse();
+                        System.out.println("Please enter the name of the new nurse");
+
+                        String nurseInput = input.nextLine();
+                        datasource.addNurse(nurseInput);
+                        System.out.println(nurseInput + " added to the database");
                     } catch(IOException | SQLException e) {
                         System.out.println("Record addition unsuccessful:");
                         e.printStackTrace();
+                    } catch(Exception e) {
+                        System.out.println("Addition unsuccessful: " + e.getMessage());
                     }
                     break;
 
@@ -39,6 +45,10 @@ public class NurseMenu {
                     break;
 
                 case 3:
+                    System.out.println("Placeholder text for renaming a nurse");
+                    break;
+
+                case 4:
                     try {
                         System.out.println("Nurses on record:");
                         for (Nurse nurse : datasource.getNurses()) {
@@ -50,7 +60,7 @@ public class NurseMenu {
                     }
                     break;
 
-                case 4:
+                case 5:
                     System.out.println("Returning to main menu");
                     shouldExit = true;
                     break;
@@ -67,7 +77,8 @@ public class NurseMenu {
         System.out.println("0 - to display a list of available actions");
         System.out.println("1 - to add a nurse to the database");
         System.out.println("2 - to remove a nurse from the database");
-        System.out.println("3 - to display a list of nurses in the database");
-        System.out.println("4 - to return to the main menu");
+        System.out.println("3 - to rename a nurse in the database");
+        System.out.println("4 - to display a list of nurses in the database");
+        System.out.println("5 - to return to the main menu");
     }
 }

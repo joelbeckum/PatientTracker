@@ -45,12 +45,20 @@ public class Datasource {
         }
     }
 
-    public void addNurse() throws IOException, SQLException {
+    public void addNurse(String name) throws Exception, IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
-             Statement statement = conn.createStatement()) {
+             Statement statement = conn.createStatement();
+             ResultSet results = statement.executeQuery("SELECT name FROM nurses WHERE name = '" + name + "'")) {
 
-            statement.execute("INSERT INTO nurses(name) VALUES('TestNurse1')");
+            if(results.next() == false) {
+                statement.execute("INSERT INTO nurses(name) VALUES('" + name + "')");
+            } else {
+                throw new Exception(name + " already exists");
+            }
+
         } catch(IOException | SQLException e) {
+            throw e;
+        } catch(Exception e) {
             throw e;
         }
     }
@@ -63,7 +71,7 @@ public class Datasource {
             if(results.next() == false) {
                 statement.execute("INSERT INTO rooms(roomNumber) Values(" + roomNumber + ")");
             } else {
-                throw new Exception("Room " + roomNumber + " already exists");
+                throw new Exception("Room " + roomNumber + " is already in the database");
             }
         } catch(IOException | SQLException e) {
             throw e;

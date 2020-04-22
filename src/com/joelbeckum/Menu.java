@@ -90,7 +90,7 @@ public class Menu {
         System.out.println("2 - to remove a patient from a room");
         System.out.println("3 - to assign a nurse to a room");
         System.out.println("4 - to remove a nurse from a room");
-        System.out.println("5 - add, remove, or display nurses in the database");
+        System.out.println("5 - add, remove, rename, or display nurses in the database");
         System.out.println("6 - to add, remove, update, or display patients in the database");
         System.out.println("7 - to add room to the database");
         System.out.println("8 - to display available rooms");
