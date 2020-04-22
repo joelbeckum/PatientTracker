@@ -50,7 +50,7 @@ public class Datasource {
              Statement statement = conn.createStatement();
              ResultSet results = statement.executeQuery("SELECT name FROM nurses WHERE name = '" + name + "'")) {
 
-            if(results.next() == false) {
+            if(!results.next()) {
                 statement.execute("INSERT INTO nurses(name) VALUES('" + name + "')");
             } else {
                 throw new Exception(name + " already exists");
@@ -63,12 +63,46 @@ public class Datasource {
         }
     }
 
+    public void removeNurse(String name) throws Exception, IOException, SQLException {
+        try (Connection conn = DriverManager.getConnection(getConnectionString());
+        Statement statement = conn.createStatement();
+        ResultSet results = statement.executeQuery("SELECT name FROM nurses WHERE name = '" + name + "'")) {
+
+        if(results.next()) {
+            statement.execute("DELETE FROM nurses WHERE name = '" + name + "'");
+        } else {
+            throw new Exception(name + " is not in the database");
+        }
+        } catch(IOException | SQLException e) {
+            throw e;
+        } catch(Exception e) {
+            throw e;
+        }
+    }
+
+    public void renameNurse(String currentName, String newName) throws Exception, IOException, SQLException {
+        try (Connection conn = DriverManager.getConnection(getConnectionString());
+        Statement statement = conn.createStatement();
+        ResultSet results = statement.executeQuery("SELECT name FROM nurses WHERE name = '" + currentName + "'")) {
+            if(results.next()) {
+                statement.execute("UPDATE nurses SET name = '" + newName + "' WHERE name = '" + currentName + "'");
+            } else {
+                throw new Exception(currentName + " is not in the database");
+            }
+        } catch(IOException | SQLException e) {
+            throw e;
+        } catch(Exception e) {
+            throw e;
+        }
+    }
+
+
     public void addRoom(int roomNumber) throws Exception, IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement();
              ResultSet results = statement.executeQuery("SELECT roomNumber FROM rooms WHERE roomNumber = " + roomNumber)) {
 
-            if(results.next() == false) {
+            if(!results.next()) {
                 statement.execute("INSERT INTO rooms(roomNumber) Values(" + roomNumber + ")");
             } else {
                 throw new Exception("Room " + roomNumber + " is already in the database");

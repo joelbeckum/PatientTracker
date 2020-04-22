@@ -27,7 +27,7 @@ public class NurseMenu {
 
                 case 1:
                     try {
-                        System.out.println("Please enter the name of the new nurse");
+                        System.out.println("Enter the name of the new nurse");
 
                         String nurseInput = input.nextLine();
                         datasource.addNurse(nurseInput);
@@ -41,11 +41,35 @@ public class NurseMenu {
                     break;
 
                 case 2:
-                    System.out.println("Placeholder text for removing a nurse from the database");
+                    try {
+                        System.out.println("Enter the name of the nurse to be removed");
+
+                        String nurseInput = input.nextLine();
+                        datasource.removeNurse(nurseInput);
+                        System.out.println(nurseInput + " removed from the database");
+                    } catch(IOException | SQLException e) {
+                        System.out.println("Removal unsuccessful: ");
+                        e.printStackTrace();
+                    } catch(Exception e) {
+                        System.out.println("Removal unsuccessful: " + e.getMessage());
+                    }
                     break;
 
                 case 3:
-                    System.out.println("Placeholder text for renaming a nurse");
+                    try {
+                        System.out.println("Enter name of nurse to be updated");
+                        String currentNurseInput = input.nextLine();
+                        System.out.println("Enter new name for " + currentNurseInput);
+                        String newNurseInput = input.nextLine();
+
+                        datasource.renameNurse(currentNurseInput, newNurseInput);
+                        System.out.println(currentNurseInput + " was renamed to " + newNurseInput);
+                    } catch(IOException | SQLException e) {
+                        System.out.println("Action unsuccessful: ");
+                        e.printStackTrace();
+                    } catch(Exception e) {
+                        System.out.println("Action unsuccessful: " + e.getMessage());
+                    }
                     break;
 
                 case 4:
