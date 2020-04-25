@@ -8,6 +8,11 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Menu {
+    private final NurseMenu nurseMenu;
+
+    public Menu() {
+        this.nurseMenu = new NurseMenu();
+    }
 
     public void launchUserMenu() {
         Scanner input = new Scanner(System.in);
@@ -44,8 +49,7 @@ public class Menu {
                     break;
 
                 case 5:
-                    NurseMenu nm = new NurseMenu();
-                    nm.launchNurseMenu();
+                    nurseMenu.launchNurseMenu();
                     break;
 
                 case 6:
