@@ -1,5 +1,7 @@
 package com.joelbeckum;
 
+import com.joelbeckum.Exceptions.NurseAlreadyExistsException;
+import com.joelbeckum.Exceptions.NurseNotFoundException;
 import com.joelbeckum.Repositories.Datasource;
 
 import java.io.IOException;
@@ -35,7 +37,7 @@ public class NurseMenu {
                     } catch(IOException | SQLException e) {
                         System.out.println("Record addition unsuccessful:");
                         e.printStackTrace();
-                    } catch(Exception e) {
+                    } catch(NurseAlreadyExistsException e) {
                         System.out.println("Addition unsuccessful: " + e.getMessage());
                     }
                     break;
@@ -50,7 +52,7 @@ public class NurseMenu {
                     } catch(IOException | SQLException e) {
                         System.out.println("Removal unsuccessful: ");
                         e.printStackTrace();
-                    } catch(Exception e) {
+                    } catch(NurseNotFoundException e) {
                         System.out.println("Removal unsuccessful: " + e.getMessage());
                     }
                     break;
@@ -67,7 +69,7 @@ public class NurseMenu {
                     } catch(IOException | SQLException e) {
                         System.out.println("Action unsuccessful: ");
                         e.printStackTrace();
-                    } catch(Exception e) {
+                    } catch(NurseNotFoundException e) {
                         System.out.println("Action unsuccessful: " + e.getMessage());
                     }
                     break;

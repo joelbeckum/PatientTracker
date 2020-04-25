@@ -1,5 +1,6 @@
 package com.joelbeckum;
 
+import com.joelbeckum.Exceptions.RoomAlreadyExistsException;
 import com.joelbeckum.Repositories.Datasource;
 
 import java.io.IOException;
@@ -60,7 +61,7 @@ public class Menu {
                     } catch(IOException | SQLException e) {
                         System.out.println("Room addition unsuccessful");
                         e.printStackTrace();
-                    } catch(Exception e) {
+                    } catch(RoomAlreadyExistsException e) {
                         System.out.println("Room addition unsuccessful: " + e.getMessage());
                     }
                     break;

@@ -1,5 +1,8 @@
 package com.joelbeckum.Repositories;
 
+import com.joelbeckum.Exceptions.NurseAlreadyExistsException;
+import com.joelbeckum.Exceptions.NurseNotFoundException;
+import com.joelbeckum.Exceptions.RoomAlreadyExistsException;
 import com.joelbeckum.Nurse;
 
 import java.io.FileInputStream;
@@ -45,7 +48,7 @@ public class Datasource {
         }
     }
 
-    public void addNurse(String name) throws Exception, IOException, SQLException {
+    public void addNurse(String name) throws NurseAlreadyExistsException, IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement();
              ResultSet results = statement.executeQuery("SELECT name FROM nurses WHERE name = '" + name + "'")) {
@@ -53,17 +56,15 @@ public class Datasource {
             if(!results.next()) {
                 statement.execute("INSERT INTO nurses(name) VALUES('" + name + "')");
             } else {
-                throw new Exception(name + " already exists");
+                throw new NurseAlreadyExistsException(name);
             }
 
-        } catch(IOException | SQLException e) {
-            throw e;
-        } catch(Exception e) {
+        } catch(IOException | SQLException | NurseAlreadyExistsException e) {
             throw e;
         }
     }
 
-    public void removeNurse(String name) throws Exception, IOException, SQLException {
+    public void removeNurse(String name) throws NurseNotFoundException, IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
         Statement statement = conn.createStatement();
         ResultSet results = statement.executeQuery("SELECT name FROM nurses WHERE name = '" + name + "'")) {
@@ -71,33 +72,29 @@ public class Datasource {
         if(results.next()) {
             statement.execute("DELETE FROM nurses WHERE name = '" + name + "'");
         } else {
-            throw new Exception(name + " is not in the database");
+            throw new NurseNotFoundException(name);
         }
-        } catch(IOException | SQLException e) {
-            throw e;
-        } catch(Exception e) {
+        } catch(IOException | SQLException | NurseNotFoundException e) {
             throw e;
         }
     }
 
-    public void renameNurse(String currentName, String newName) throws Exception, IOException, SQLException {
+    public void renameNurse(String currentName, String newName) throws NurseNotFoundException, IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
         Statement statement = conn.createStatement();
         ResultSet results = statement.executeQuery("SELECT name FROM nurses WHERE name = '" + currentName + "'")) {
             if(results.next()) {
                 statement.execute("UPDATE nurses SET name = '" + newName + "' WHERE name = '" + currentName + "'");
             } else {
-                throw new Exception(currentName + " is not in the database");
+                throw new NurseNotFoundException(currentName);
             }
-        } catch(IOException | SQLException e) {
-            throw e;
-        } catch(Exception e) {
+        } catch(IOException | SQLException | NurseNotFoundException e) {
             throw e;
         }
     }
 
 
-    public void addRoom(int roomNumber) throws Exception, IOException, SQLException {
+    public void addRoom(int roomNumber) throws RoomAlreadyExistsException, IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement();
              ResultSet results = statement.executeQuery("SELECT roomNumber FROM rooms WHERE roomNumber = " + roomNumber)) {
@@ -105,11 +102,9 @@ public class Datasource {
             if(!results.next()) {
                 statement.execute("INSERT INTO rooms(roomNumber) Values(" + roomNumber + ")");
             } else {
-                throw new Exception("Room " + roomNumber + " is already in the database");
+                throw new RoomAlreadyExistsException(roomNumber);
             }
-        } catch(IOException | SQLException e) {
-            throw e;
-        } catch(Exception e) {
+        } catch(IOException | SQLException | RoomAlreadyExistsException e) {
             throw e;
         }
     }
