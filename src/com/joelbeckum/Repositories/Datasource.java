@@ -49,62 +49,75 @@ public class Datasource {
     }
 
     public void addNurse(String name) throws NurseAlreadyExistsException, IOException, SQLException {
+        if (nurseExists(name)) {
+            throw new NurseAlreadyExistsException(name);
+        }
+
         try (Connection conn = DriverManager.getConnection(getConnectionString());
-             Statement statement = conn.createStatement();
-             ResultSet results = statement.executeQuery("SELECT name FROM nurses WHERE name = '" + name + "'")) {
-
-            if(!results.next()) {
+             Statement statement = conn.createStatement()) {
                 statement.execute("INSERT INTO nurses(name) VALUES('" + name + "')");
-            } else {
-                throw new NurseAlreadyExistsException(name);
-            }
-
-        } catch(IOException | SQLException | NurseAlreadyExistsException e) {
+        } catch (IOException | SQLException e) {
             throw e;
         }
     }
 
     public void removeNurse(String name) throws NurseNotFoundException, IOException, SQLException {
-        try (Connection conn = DriverManager.getConnection(getConnectionString());
-        Statement statement = conn.createStatement();
-        ResultSet results = statement.executeQuery("SELECT name FROM nurses WHERE name = '" + name + "'")) {
-
-        if(results.next()) {
-            statement.execute("DELETE FROM nurses WHERE name = '" + name + "'");
-        } else {
+        if(!nurseExists(name)) {
             throw new NurseNotFoundException(name);
         }
-        } catch(IOException | SQLException | NurseNotFoundException e) {
+
+        try (Connection conn = DriverManager.getConnection(getConnectionString());
+             Statement statement = conn.createStatement()) {
+            statement.execute("DELETE FROM nurses WHERE name = '" + name + "'");
+        } catch(IOException | SQLException e) {
             throw e;
         }
     }
 
     public void renameNurse(String currentName, String newName) throws NurseNotFoundException, IOException, SQLException {
+        if (!nurseExists(currentName)) {
+            throw new NurseNotFoundException(currentName);
+        }
+
         try (Connection conn = DriverManager.getConnection(getConnectionString());
-        Statement statement = conn.createStatement();
-        ResultSet results = statement.executeQuery("SELECT name FROM nurses WHERE name = '" + currentName + "'")) {
-            if(results.next()) {
+             Statement statement = conn.createStatement()) {
                 statement.execute("UPDATE nurses SET name = '" + newName + "' WHERE name = '" + currentName + "'");
-            } else {
-                throw new NurseNotFoundException(currentName);
-            }
-        } catch(IOException | SQLException | NurseNotFoundException e) {
+        } catch(IOException | SQLException e) {
             throw e;
         }
     }
 
+    private boolean nurseExists(String name)  throws IOException, SQLException {
+        try (Connection conn = DriverManager.getConnection(getConnectionString());
+        Statement statement = conn.createStatement();
+        ResultSet results = statement.executeQuery("SELECT name FROM nurses WHERE name = '" + name + "'")) {
+
+            return results.next();
+        } catch(IOException | SQLException e) {
+            throw e;
+        }
+    }
 
     public void addRoom(int roomNumber) throws RoomAlreadyExistsException, IOException, SQLException {
+        if(roomExists(roomNumber)) {
+            throw new RoomAlreadyExistsException(roomNumber);
+        }
+
+        try (Connection conn = DriverManager.getConnection(getConnectionString());
+             Statement statement = conn.createStatement()) {
+            statement.execute("INSERT INTO rooms(roomNumber) Values(" + roomNumber + ")");
+        } catch(IOException | SQLException e) {
+            throw e;
+        }
+    }
+
+    private boolean roomExists(int roomNumber) throws IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement();
              ResultSet results = statement.executeQuery("SELECT roomNumber FROM rooms WHERE roomNumber = " + roomNumber)) {
 
-            if(!results.next()) {
-                statement.execute("INSERT INTO rooms(roomNumber) Values(" + roomNumber + ")");
-            } else {
-                throw new RoomAlreadyExistsException(roomNumber);
-            }
-        } catch(IOException | SQLException | RoomAlreadyExistsException e) {
+            return results.next();
+        } catch(IOException | SQLException e) {
             throw e;
         }
     }

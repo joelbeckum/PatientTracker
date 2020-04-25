@@ -62,6 +62,7 @@ public class Menu {
 
                         int roomInput = input.nextInt();
                         datasource.addRoom(roomInput);
+                        System.out.println("Room " + roomInput + " added to the database");
                     } catch(IOException | SQLException e) {
                         System.out.println("Room addition unsuccessful");
                         e.printStackTrace();
