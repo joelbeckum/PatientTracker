@@ -62,7 +62,15 @@ public class RoomMenu {
                     break;
 
                 case 4:
-                    System.out.println("Placeholder for getRooms() method");
+                    try {
+                        System.out.println("Rooms on record:");
+                        for (Room room : roomData.getRooms()) {
+                            System.out.println(room.getRoomNumber());
+                        }
+                    } catch(IOException | SQLException e) {
+                        System.out.println("Query failed:");
+                        e.printStackTrace();
+                    }
                     break;
 
                 case 5:
