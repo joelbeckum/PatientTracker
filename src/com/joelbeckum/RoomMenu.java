@@ -2,7 +2,7 @@ package com.joelbeckum;
 
 import com.joelbeckum.Exceptions.RoomAlreadyExistsException;
 import com.joelbeckum.Exceptions.RoomNotFoundException;
-import com.joelbeckum.Repositories.Datasource;
+import com.joelbeckum.Repositories.RoomData;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ public class RoomMenu {
 
     public void launchRoomMenu() {
         Scanner input = new Scanner(System.in);
-        Datasource datasource = new Datasource();
+        RoomData roomData = new RoomData();
         boolean shouldExit = false;
         printRoomMenu();
 
@@ -32,7 +32,7 @@ public class RoomMenu {
                         System.out.println("Enter room number to add to the database");
 
                         int roomInput = input.nextInt();
-                        datasource.addRoom(roomInput);
+                        roomData.addRoom(roomInput);
                         System.out.println("Room " + roomInput + " added to the database");
                     } catch(IOException | SQLException e) {
                         System.out.println("Room addition unsuccessful");
@@ -47,7 +47,7 @@ public class RoomMenu {
                         System.out.println("Enter the room number to be removed");
 
                         int roomInput = input.nextInt();
-                        datasource.removeRoom(roomInput);
+                        roomData.removeRoom(roomInput);
                         System.out.println("Room " + roomInput + " removed from the database");
                     } catch(IOException | SQLException e) {
                         System.out.println("Removal unsuccessful: ");

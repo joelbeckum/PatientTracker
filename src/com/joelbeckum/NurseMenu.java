@@ -2,7 +2,7 @@ package com.joelbeckum;
 
 import com.joelbeckum.Exceptions.NurseAlreadyExistsException;
 import com.joelbeckum.Exceptions.NurseNotFoundException;
-import com.joelbeckum.Repositories.Datasource;
+import com.joelbeckum.Repositories.NurseData;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ public class NurseMenu {
 
     public void launchNurseMenu() {
         Scanner input = new Scanner(System.in);
-        Datasource datasource = new Datasource();
+        NurseData nurseData = new NurseData();
         boolean shouldExit = false;
         printNurseMenu();
 
@@ -32,7 +32,7 @@ public class NurseMenu {
                         System.out.println("Enter the name of the new nurse");
 
                         String nurseInput = input.nextLine();
-                        datasource.addNurse(nurseInput);
+                        nurseData.addNurse(nurseInput);
                         System.out.println(nurseInput + " added to the database");
                     } catch(IOException | SQLException e) {
                         System.out.println("Record addition unsuccessful:");
@@ -47,7 +47,7 @@ public class NurseMenu {
                         System.out.println("Enter the name of the nurse to be removed");
 
                         String nurseInput = input.nextLine();
-                        datasource.removeNurse(nurseInput);
+                        nurseData.removeNurse(nurseInput);
                         System.out.println(nurseInput + " removed from the database");
                     } catch(IOException | SQLException e) {
                         System.out.println("Removal unsuccessful: ");
@@ -64,7 +64,7 @@ public class NurseMenu {
                         System.out.println("Enter new name for " + currentNurseInput);
                         String newNurseInput = input.nextLine();
 
-                        datasource.renameNurse(currentNurseInput, newNurseInput);
+                        nurseData.renameNurse(currentNurseInput, newNurseInput);
                         System.out.println(currentNurseInput + " was renamed to " + newNurseInput);
                     } catch(IOException | SQLException e) {
                         System.out.println("Action unsuccessful: ");
@@ -77,7 +77,7 @@ public class NurseMenu {
                 case 4:
                     try {
                         System.out.println("Nurses on record:");
-                        for (Nurse nurse : datasource.getNurses()) {
+                        for (Nurse nurse : nurseData.getNurses()) {
                             System.out.println(nurse.getName());
                         }
                     } catch(IOException | SQLException e) {

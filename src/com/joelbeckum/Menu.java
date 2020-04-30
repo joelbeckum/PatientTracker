@@ -1,7 +1,5 @@
 package com.joelbeckum;
 
-import com.joelbeckum.Repositories.Datasource;
-
 import java.util.Scanner;
 
 public class Menu {
@@ -15,7 +13,6 @@ public class Menu {
 
     public void launchUserMenu() {
         Scanner input = new Scanner(System.in);
-        Datasource datasource = new Datasource();
         boolean shouldExit = false;
         System.out.println("Welcome to PatientTracker!");
         printMenu();
