@@ -5,3 +5,4 @@ public class NurseNotFoundException extends Exception {
         super(nurseName + " does not exist");
     }
 }
+

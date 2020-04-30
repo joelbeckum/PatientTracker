@@ -1,17 +1,16 @@
 package com.joelbeckum;
 
-import com.joelbeckum.Exceptions.RoomAlreadyExistsException;
 import com.joelbeckum.Repositories.Datasource;
 
-import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Scanner;
 
 public class Menu {
     private final NurseMenu nurseMenu;
+    private final RoomMenu roomMenu;
 
     public Menu() {
         this.nurseMenu = new NurseMenu();
+        this.roomMenu = new RoomMenu();
     }
 
     public void launchUserMenu() {
@@ -57,18 +56,7 @@ public class Menu {
                     break;
 
                 case 7:
-                    try {
-                        System.out.println("Enter room number to add to the database");
-
-                        int roomInput = input.nextInt();
-                        datasource.addRoom(roomInput);
-                        System.out.println("Room " + roomInput + " added to the database");
-                    } catch(IOException | SQLException e) {
-                        System.out.println("Room addition unsuccessful");
-                        e.printStackTrace();
-                    } catch(RoomAlreadyExistsException e) {
-                        System.out.println("Room addition unsuccessful: " + e.getMessage());
-                    }
+                    roomMenu.launchRoomMenu();
                     break;
 
                 case 8:
@@ -98,7 +86,7 @@ public class Menu {
         System.out.println("4 - to remove a nurse from a room");
         System.out.println("5 - add, remove, rename, or display nurses in the database");
         System.out.println("6 - to add, remove, update, or display patients in the database");
-        System.out.println("7 - to add room to the database");
+        System.out.println("7 - to add, remove, update, or display rooms in the database");
         System.out.println("8 - to display available rooms");
         System.out.println("9 - to exit the application");
     }

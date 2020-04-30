@@ -3,6 +3,7 @@ package com.joelbeckum.Repositories;
 import com.joelbeckum.Exceptions.NurseAlreadyExistsException;
 import com.joelbeckum.Exceptions.NurseNotFoundException;
 import com.joelbeckum.Exceptions.RoomAlreadyExistsException;
+import com.joelbeckum.Exceptions.RoomNotFoundException;
 import com.joelbeckum.Nurse;
 
 import java.io.FileInputStream;
@@ -106,6 +107,19 @@ public class Datasource {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement()) {
             statement.execute("INSERT INTO rooms(roomNumber) Values(" + roomNumber + ")");
+        } catch(IOException | SQLException e) {
+            throw e;
+        }
+    }
+
+    public void removeRoom(int roomNumber) throws RoomNotFoundException, IOException, SQLException {
+        if(!roomExists(roomNumber)) {
+            throw new RoomNotFoundException(roomNumber);
+        }
+
+        try (Connection conn = DriverManager.getConnection(getConnectionString());
+             Statement statement = conn.createStatement()) {
+            statement.execute("DELETE FROM rooms WHERE roomNumber = " + roomNumber);
         } catch(IOException | SQLException e) {
             throw e;
         }
