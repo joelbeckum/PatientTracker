@@ -1,6 +1,7 @@
 package com.joelbeckum.Repositories;
 
 import com.joelbeckum.Exceptions.PatientAlreadyExistsException;
+import com.joelbeckum.Exceptions.PatientNotFoundException;
 import com.joelbeckum.Patient;
 
 import java.io.IOException;
@@ -39,6 +40,19 @@ public class PatientData extends Datasource {
              Statement statement = conn.createStatement()) {
             statement.execute("INSERT INTO patients(name, prescriptions, treatments) VALUES('" + name + "', '" + prescription + "', '" + treatment + "')");
         } catch (IOException | SQLException e) {
+            throw e;
+        }
+    }
+
+    public void removePatient(String name) throws PatientNotFoundException, IOException, SQLException {
+        if(!patientExists(name)) {
+            throw new PatientNotFoundException(name);
+        }
+
+        try (Connection conn = DriverManager.getConnection(getConnectionString());
+             Statement statement = conn.createStatement()) {
+            statement.execute("DELETE FROM patients WHERE name = '" + name + "'");
+        } catch(IOException | SQLException e) {
             throw e;
         }
     }

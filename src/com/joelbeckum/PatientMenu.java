@@ -1,6 +1,7 @@
 package com.joelbeckum;
 
 import com.joelbeckum.Exceptions.PatientAlreadyExistsException;
+import com.joelbeckum.Exceptions.PatientNotFoundException;
 import com.joelbeckum.Repositories.PatientData;
 
 import java.io.IOException;
@@ -46,7 +47,18 @@ public class PatientMenu {
                     break;
 
                 case 2:
-                    System.out.println("Placeholder for removePatient() method");
+                    try {
+                        System.out.println("Enter the name of the patient to be removed");
+
+                        String patientInput = input.nextLine();
+                        patientData.removePatient(patientInput);
+                        System.out.println(patientInput + " removed from the database");
+                    } catch(IOException | SQLException e) {
+                        System.out.println("Removal unsuccessful: ");
+                        e.printStackTrace();
+                    } catch(PatientNotFoundException e) {
+                        System.out.println("Removal unsuccessful: " + e.getMessage());
+                    }
                     break;
 
                 case 3:
