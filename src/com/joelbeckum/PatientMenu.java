@@ -2,6 +2,8 @@ package com.joelbeckum;
 
 import com.joelbeckum.Repositories.PatientData;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class PatientMenu {
@@ -36,7 +38,15 @@ public class PatientMenu {
                     break;
 
                 case 4:
-                    System.out.println("Placeholder for getPatients() method");
+                    try {
+                        System.out.println("Patients on record:");
+                        for (Patient patient : patientData.getPatients()) {
+                            System.out.println(patient.getName());
+                        }
+                    } catch(IOException | SQLException e) {
+                        System.out.println("Query failed:");
+                        e.printStackTrace();
+                    }
                     break;
 
                 case 5:
