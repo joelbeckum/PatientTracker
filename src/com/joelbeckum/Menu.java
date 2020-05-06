@@ -5,10 +5,12 @@ import java.util.Scanner;
 public class Menu {
     private final NurseMenu nurseMenu;
     private final RoomMenu roomMenu;
+    private final PatientMenu patientMenu;
 
     public Menu() {
         this.nurseMenu = new NurseMenu();
         this.roomMenu = new RoomMenu();
+        this.patientMenu = new PatientMenu();
     }
 
     public void launchUserMenu() {
@@ -49,7 +51,7 @@ public class Menu {
                     break;
 
                 case 6:
-                    System.out.println("launchPatientMenu method will go here");
+                    patientMenu.launchPatientMenu();
                     break;
 
                 case 7:

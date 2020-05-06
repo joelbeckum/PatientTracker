@@ -5,3 +5,4 @@ public class RoomNotFoundException extends Exception {
         super("Room " + roomNumber + " does not exist");
     }
 }
+
