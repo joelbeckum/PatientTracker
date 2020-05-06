@@ -1,5 +1,6 @@
 package com.joelbeckum;
 
+import com.joelbeckum.Exceptions.PatientAlreadyExistsException;
 import com.joelbeckum.Repositories.PatientData;
 
 import java.io.IOException;
@@ -26,7 +27,22 @@ public class PatientMenu {
                     break;
 
                 case 1:
-                    System.out.println("Placeholder for addPatient() method");
+                    try {
+                        System.out.println("Enter last name, first name of the new patient");
+                        String patientInput = input.nextLine();
+                        System.out.println("Enter " + patientInput + "'s prescriptions separated by commas");
+                        String prescriptionInput = input.nextLine();
+                        System.out.println("Enter " + patientInput + "'s treatments separated by commas");
+                        String treatmentInput = input.nextLine();
+
+                        patientData.addPatient(patientInput, prescriptionInput, treatmentInput);
+                        System.out.println(patientInput + " added to the database");
+                    } catch(IOException | SQLException e) {
+                        System.out.println("Record addition unsuccessful:");
+                        e.printStackTrace();
+                    } catch(PatientAlreadyExistsException e) {
+                        System.out.println("Addition unsuccessful: " + e.getMessage());
+                    }
                     break;
 
                 case 2:
