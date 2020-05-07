@@ -62,7 +62,24 @@ public class PatientMenu {
                     break;
 
                 case 3:
-                    System.out.println("Placeholder for updatePatient() method");
+                    try {
+                        System.out.println("Enter last name, first name of the patient to be updated");
+                        String patientInput = input.nextLine();
+                        System.out.println("Enter " + patientInput + "'s updated last name, first name");
+                        String newNameInput = input.nextLine();
+                        System.out.println("Enter " + newNameInput + "'s updated prescriptions separated by commas");
+                        String prescriptionInput = input.nextLine();
+                        System.out.println("Enter " + newNameInput + "'s updated treatments separated by commas");
+                        String treatmentInput = input.nextLine();
+
+                        patientData.updatePatient(patientInput, newNameInput, prescriptionInput, treatmentInput);
+                        System.out.println(newNameInput + " successfully updated");
+                    } catch(IOException | SQLException e) {
+                        System.out.println("Record addition unsuccessful:");
+                        e.printStackTrace();
+                    } catch(PatientNotFoundException e) {
+                        System.out.println("Addition unsuccessful: " + e.getMessage());
+                    }
                     break;
 
                 case 4:

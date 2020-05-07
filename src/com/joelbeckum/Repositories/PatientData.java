@@ -57,6 +57,19 @@ public class PatientData extends Datasource {
         }
     }
 
+    public void updatePatient(String currentName, String newName, String prescription, String treatment) throws PatientNotFoundException, IOException, SQLException {
+        if (!patientExists(currentName)) {
+            throw new PatientNotFoundException(currentName);
+        }
+
+        try (Connection conn = DriverManager.getConnection(getConnectionString());
+             Statement statement = conn.createStatement()) {
+            statement.execute("UPDATE patients SET name = '" + newName + "', prescriptions = '" + prescription + "', treatments = '" + treatment + "' WHERE name = '" + currentName + "'");
+        } catch(IOException | SQLException e) {
+            throw e;
+        }
+    }
+
     private boolean patientExists(String name) throws IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement();
