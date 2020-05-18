@@ -14,7 +14,7 @@ public class PatientData extends Datasource {
     public List<Patient> getPatients() throws IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement();
-             ResultSet results = statement.executeQuery("SELECT id, name FROM patients ORDER BY name ASC")) {
+             ResultSet results = statement.executeQuery("SELECT id, name, prescriptions, treatments FROM patients ORDER BY name ASC")) {
 
             List<Patient> patients = new ArrayList<>();
 

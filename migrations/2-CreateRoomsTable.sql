@@ -1,1 +1,1 @@
-CREATE TABLE rooms (id INTEGER PRIMARY KEY, roomNumber INTEGER);
+CREATE TABLE rooms (id INTEGER PRIMARY KEY, roomNumber INTEGER, assignedNurse TEXT, assignedPatient TEXT);
