@@ -56,7 +56,27 @@ public class AssignmentMenu {
                     break;
 
                 case 2:
-                    System.out.println("Placeholder text for unassignNurse() method");
+                    try {
+                        System.out.println("Enter room number for nurse removal");
+                        int roomNumber = input.nextInt();
+                        input.nextLine();
+                        if(!roomData.roomExists(roomNumber)) {
+                            System.out.println("Action unsuccessful: Room " + roomNumber + " doesn't exist");
+                            break;
+                        }
+
+                        if(assignmentData.getAssignedNurse(roomNumber) == null) {
+                            System.out.println("There is currently no nurse assigned to Room " + roomNumber);
+                            break;
+                        }
+
+                        String unassignedNurse = assignmentData.getAssignedNurse(roomNumber);
+                        assignmentData.unassignNurse(roomNumber);
+                        System.out.println(unassignedNurse + " successfully removed from Room " + roomNumber);
+                    } catch(IOException | SQLException e) {
+                        System.out.println("Action unsuccessful: ");
+                        e.printStackTrace();
+                    }
                     break;
 
                 case 3:
