@@ -16,4 +16,13 @@ public class AssignmentData extends Datasource {
             throw e;
         }
     }
+
+    public void assignNurse(int roomNumber, String nurseName) throws IOException, SQLException {
+        try (Connection conn = DriverManager.getConnection(getConnectionString());
+             Statement statement = conn.createStatement()) {
+            statement.execute("UPDATE rooms SET assignedNurse = '" + nurseName + "' WHERE roomNumber = " + roomNumber);
+        } catch(IOException | SQLException e) {
+            throw e;
+        }
+    }
 }

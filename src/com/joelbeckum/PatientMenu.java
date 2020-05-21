@@ -30,14 +30,14 @@ public class PatientMenu {
                 case 1:
                     try {
                         System.out.println("Enter last name, first name of the new patient");
-                        String patientInput = input.nextLine();
-                        System.out.println("Enter " + patientInput + "'s prescriptions separated by commas");
-                        String prescriptionInput = input.nextLine();
-                        System.out.println("Enter " + patientInput + "'s treatments separated by commas");
-                        String treatmentInput = input.nextLine();
+                        String patientName = input.nextLine();
+                        System.out.println("Enter " + patientName + "'s prescriptions separated by commas");
+                        String prescription = input.nextLine();
+                        System.out.println("Enter " + patientName + "'s treatments separated by commas");
+                        String treatment = input.nextLine();
 
-                        patientData.addPatient(patientInput, prescriptionInput, treatmentInput);
-                        System.out.println(patientInput + " added to the database");
+                        patientData.addPatient(patientName, prescription, treatment);
+                        System.out.println(patientName + " added to the database");
                     } catch(IOException | SQLException e) {
                         System.out.println("Record addition unsuccessful:");
                         e.printStackTrace();
@@ -50,9 +50,9 @@ public class PatientMenu {
                     try {
                         System.out.println("Enter the name of the patient to be removed");
 
-                        String patientInput = input.nextLine();
-                        patientData.removePatient(patientInput);
-                        System.out.println(patientInput + " removed from the database");
+                        String patientName = input.nextLine();
+                        patientData.removePatient(patientName);
+                        System.out.println(patientName + " removed from the database");
                     } catch(IOException | SQLException e) {
                         System.out.println("Removal unsuccessful: ");
                         e.printStackTrace();
@@ -64,16 +64,16 @@ public class PatientMenu {
                 case 3:
                     try {
                         System.out.println("Enter last name, first name of the patient to be updated");
-                        String patientInput = input.nextLine();
-                        System.out.println("Enter " + patientInput + "'s updated last name, first name");
-                        String newNameInput = input.nextLine();
-                        System.out.println("Enter " + newNameInput + "'s updated prescriptions separated by commas");
-                        String prescriptionInput = input.nextLine();
-                        System.out.println("Enter " + newNameInput + "'s updated treatments separated by commas");
-                        String treatmentInput = input.nextLine();
+                        String patientCurrentName = input.nextLine();
+                        System.out.println("Enter " + patientCurrentName + "'s updated last name, first name");
+                        String patientNewName = input.nextLine();
+                        System.out.println("Enter " + patientNewName + "'s updated prescriptions separated by commas");
+                        String prescription = input.nextLine();
+                        System.out.println("Enter " + patientNewName + "'s updated treatments separated by commas");
+                        String treatment = input.nextLine();
 
-                        patientData.updatePatient(patientInput, newNameInput, prescriptionInput, treatmentInput);
-                        System.out.println(newNameInput + " successfully updated");
+                        patientData.updatePatient(patientCurrentName, patientNewName, prescription, treatment);
+                        System.out.println(patientNewName + " successfully updated");
                     } catch(IOException | SQLException e) {
                         System.out.println("Record addition unsuccessful:");
                         e.printStackTrace();

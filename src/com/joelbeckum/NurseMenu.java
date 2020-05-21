@@ -31,9 +31,9 @@ public class NurseMenu {
                     try {
                         System.out.println("Enter the name of the new nurse");
 
-                        String nurseInput = input.nextLine();
-                        nurseData.addNurse(nurseInput);
-                        System.out.println(nurseInput + " added to the database");
+                        String nurseName = input.nextLine();
+                        nurseData.addNurse(nurseName);
+                        System.out.println(nurseName + " added to the database");
                     } catch(IOException | SQLException e) {
                         System.out.println("Record addition unsuccessful:");
                         e.printStackTrace();
@@ -46,9 +46,9 @@ public class NurseMenu {
                     try {
                         System.out.println("Enter the name of the nurse to be removed");
 
-                        String nurseInput = input.nextLine();
-                        nurseData.removeNurse(nurseInput);
-                        System.out.println(nurseInput + " removed from the database");
+                        String nurseName = input.nextLine();
+                        nurseData.removeNurse(nurseName);
+                        System.out.println(nurseName + " removed from the database");
                     } catch(IOException | SQLException e) {
                         System.out.println("Removal unsuccessful: ");
                         e.printStackTrace();
@@ -60,12 +60,12 @@ public class NurseMenu {
                 case 3:
                     try {
                         System.out.println("Enter name of nurse to be updated");
-                        String currentNurseInput = input.nextLine();
-                        System.out.println("Enter new name for " + currentNurseInput);
-                        String newNurseInput = input.nextLine();
+                        String currentNurseName = input.nextLine();
+                        System.out.println("Enter new name for " + currentNurseName);
+                        String newNurseName = input.nextLine();
 
-                        nurseData.renameNurse(currentNurseInput, newNurseInput);
-                        System.out.println(currentNurseInput + " was renamed to " + newNurseInput);
+                        nurseData.renameNurse(currentNurseName, newNurseName);
+                        System.out.println(currentNurseName + " was renamed to " + newNurseName);
                     } catch(IOException | SQLException e) {
                         System.out.println("Action unsuccessful: ");
                         e.printStackTrace();

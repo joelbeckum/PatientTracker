@@ -31,8 +31,28 @@ public class AssignmentMenu {
                     break;
 
                 case 1:
-                    System.out.println("Placeholder text for assignNurse() method");
-                    // Do your objectExists() method checks here so you don't have to cross repositories
+                    try {
+                        System.out.println("Enter room number for assignment");
+                        int roomNumber = input.nextInt();
+                        input.nextLine();
+                        if(!roomData.roomExists(roomNumber)) {
+                            System.out.println("Action unsuccessful: Room " + roomNumber + " doesn't exist");
+                            break;
+                        }
+//
+                        System.out.println("Enter name of the nurse to be assigned to Room " + roomNumber);
+                        String nurseName = input.nextLine();
+                        if(!nurseData.nurseExists(nurseName)) {
+                            System.out.println("Action unsuccessful: " + nurseName + " doesn't exist");
+                            break;
+                        }
+
+                        assignmentData.assignNurse(roomNumber, nurseName);
+                        System.out.println(nurseName + " successfully assigned to Room " + roomNumber);
+                    } catch(IOException | SQLException e) {
+                        System.out.println("Action unsuccessful: ");
+                        e.printStackTrace();
+                    }
                     break;
 
                 case 2:
