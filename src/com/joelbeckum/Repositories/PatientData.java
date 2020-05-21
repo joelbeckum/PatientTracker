@@ -70,7 +70,7 @@ public class PatientData extends Datasource {
         }
     }
 
-    private boolean patientExists(String name) throws IOException, SQLException {
+    public boolean patientExists(String name) throws IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement();
              ResultSet results = statement.executeQuery("SELECT name FROM patients WHERE name = '" + name + "'")) {

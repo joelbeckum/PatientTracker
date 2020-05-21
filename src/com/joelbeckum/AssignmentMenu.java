@@ -1,9 +1,12 @@
 package com.joelbeckum;
 
+import com.joelbeckum.Repositories.AssignmentData;
 import com.joelbeckum.Repositories.NurseData;
 import com.joelbeckum.Repositories.PatientData;
 import com.joelbeckum.Repositories.RoomData;
 
+import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 public class AssignmentMenu {
@@ -13,6 +16,7 @@ public class AssignmentMenu {
         NurseData nurseData = new NurseData();
         PatientData patientData = new PatientData();
         RoomData roomData = new RoomData();
+        AssignmentData assignmentData = new AssignmentData();
         boolean shouldExit = false;
         printAssignmentMenu();
 
@@ -28,6 +32,7 @@ public class AssignmentMenu {
 
                 case 1:
                     System.out.println("Placeholder text for assignNurse() method");
+                    // Do your objectExists() method checks here so you don't have to cross repositories
                     break;
 
                 case 2:
@@ -35,7 +40,28 @@ public class AssignmentMenu {
                     break;
 
                 case 3:
-                    System.out.println("Placeholder text for assignPatient() method");
+                    try {
+                        System.out.println("Enter room number for assignment");
+                        int roomNumber = input.nextInt();
+                        input.nextLine();
+                        if(!roomData.roomExists(roomNumber)) {
+                            System.out.println("Action unsuccessful: Room " + roomNumber + " doesn't exist");
+                            break;
+                        }
+//
+                        System.out.println("Enter last name, first name of the patient to be assigned to Room " + roomNumber);
+                        String patientName = input.nextLine();
+                        if(!patientData.patientExists(patientName)) {
+                            System.out.println("Action unsuccessful: " + patientName + " doesn't exist");
+                            break;
+                        }
+
+                        assignmentData.assignPatient(roomNumber, patientName);
+                        System.out.println(patientName + " successfully assigned to Room " + roomNumber);
+                    } catch(IOException | SQLException e) {
+                        System.out.println("Action unsuccessful: ");
+                        e.printStackTrace();
+                    }
                     break;
 
                 case 4:
@@ -44,6 +70,7 @@ public class AssignmentMenu {
 
                 case 5:
                     System.out.println("Placeholder text for displayRoomAssignments() method");
+                    break;
 
                 case 6:
                     System.out.println("Returning to main menu");

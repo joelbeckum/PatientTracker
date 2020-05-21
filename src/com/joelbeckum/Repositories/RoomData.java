@@ -57,7 +57,7 @@ public class RoomData extends Datasource {
         }
     }
 
-    private boolean roomExists(int roomNumber) throws IOException, SQLException {
+    public boolean roomExists(int roomNumber) throws IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement();
              ResultSet results = statement.executeQuery("SELECT roomNumber FROM rooms WHERE roomNumber = " + roomNumber)) {
