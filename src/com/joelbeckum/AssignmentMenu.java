@@ -39,7 +39,7 @@ public class AssignmentMenu {
                             System.out.println("Action unsuccessful: Room " + roomNumber + " doesn't exist");
                             break;
                         }
-//
+
                         System.out.println("Enter name of the nurse to be assigned to Room " + roomNumber);
                         String nurseName = input.nextLine();
                         if(!nurseData.nurseExists(nurseName)) {
@@ -68,7 +68,7 @@ public class AssignmentMenu {
                             System.out.println("Action unsuccessful: Room " + roomNumber + " doesn't exist");
                             break;
                         }
-//
+
                         System.out.println("Enter last name, first name of the patient to be assigned to Room " + roomNumber);
                         String patientName = input.nextLine();
                         if(!patientData.patientExists(patientName)) {
@@ -85,7 +85,27 @@ public class AssignmentMenu {
                     break;
 
                 case 4:
-                    System.out.println("Placeholder text for unassignPatient() method");
+                    try {
+                        System.out.println("Enter room number for patient removal");
+                        int roomNumber = input.nextInt();
+                        input.nextLine();
+                        if(!roomData.roomExists(roomNumber)) {
+                            System.out.println("Action unsuccessful: Room " + roomNumber + " doesn't exist");
+                            break;
+                        }
+
+                        if(assignmentData.getAssignedPatient(roomNumber) == null) {
+                            System.out.println("There is currently no patient assigned to Room " + roomNumber);
+                            break;
+                        }
+
+                        String unassignedPatient = assignmentData.getAssignedPatient(roomNumber);
+                        assignmentData.unassignPatient(roomNumber);
+                        System.out.println(unassignedPatient + " successfully removed from Room " + roomNumber);
+                    } catch(IOException | SQLException e) {
+                        System.out.println("Action unsuccessful: ");
+                        e.printStackTrace();
+                    }
                     break;
 
                 case 5:
