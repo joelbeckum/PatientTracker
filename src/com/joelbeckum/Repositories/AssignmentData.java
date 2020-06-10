@@ -37,8 +37,10 @@ public class AssignmentData extends Datasource {
 
     public void assignNurse(int roomNumber, String nurseName) throws IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
-             Statement statement = conn.createStatement()) {
-            statement.execute("UPDATE rooms SET assignedNurse = '" + nurseName + "' WHERE roomNumber = " + roomNumber);
+             Statement statement = conn.createStatement();
+             ResultSet results = statement.executeQuery("SELECT id FROM nurses WHERE name = '" + nurseName + "'")) {
+            int nurseID = results.getInt(1);
+            statement.execute("UPDATE rooms SET assignedNurse = " + nurseID + " WHERE roomNumber = " + roomNumber);
         } catch(IOException | SQLException e) {
             throw e;
         }
