@@ -7,8 +7,10 @@ public class AssignmentData extends Datasource {
 
     public void assignPatient(int roomNumber, String patientName) throws IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
-             Statement statement = conn.createStatement()) {
-            statement.execute("UPDATE rooms SET assignedPatient = '" + patientName + "' WHERE roomNumber = " + roomNumber);
+             Statement statement = conn.createStatement();
+             ResultSet results = statement.executeQuery("SELECT id FROM patients WHERE name = '" + patientName + "'")) {
+            int patientID = results.getInt(1);
+            statement.execute("UPDATE rooms SET assignedPatient = " + patientID + " WHERE roomNumber = " + roomNumber);
         } catch(IOException | SQLException e) {
             throw e;
         }
