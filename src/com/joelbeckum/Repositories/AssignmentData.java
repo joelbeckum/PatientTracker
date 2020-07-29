@@ -52,7 +52,14 @@ public class AssignmentData extends Datasource {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement();
              ResultSet results = statement.executeQuery("SELECT assignedNurse FROM rooms WHERE roomNumber = " + roomNumber)) {
-            String assignedNurse = results.getString(1);
+            if (results.getInt(1) == 0) {
+                return null;
+            }
+            int assignedNurseID = results.getInt(1);
+
+            ResultSet assignedNurseResults = statement.executeQuery("SELECT name FROM nurses WHERE id = " + assignedNurseID);
+
+            String assignedNurse = assignedNurseResults.getString(1);
 
             return assignedNurse;
         } catch(IOException | SQLException e) {
