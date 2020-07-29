@@ -20,7 +20,14 @@ public class AssignmentData extends Datasource {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement();
              ResultSet results = statement.executeQuery("SELECT assignedPatient FROM rooms WHERE roomNumber = " + roomNumber)) {
-            String assignedPatient = results.getString(1);
+            if (results.getInt(1) == 0) {
+                return null;
+            }
+            int assignedPatientID = results.getInt(1);
+
+            ResultSet assignedPatientResults = statement.executeQuery("SELECT name FROM patients WHERE id = " + assignedPatientID);
+
+            String assignedPatient = assignedPatientResults.getString(1);
 
             return assignedPatient;
         } catch(IOException | SQLException e) {
