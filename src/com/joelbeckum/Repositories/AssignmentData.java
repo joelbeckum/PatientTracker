@@ -20,10 +20,12 @@ public class AssignmentData extends Datasource {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement();
              ResultSet results = statement.executeQuery("SELECT assignedPatient FROM rooms WHERE roomNumber = " + roomNumber)) {
-            if (results.getInt(1) == 0) {
+
+            int assignedPatientID = results.getInt(1);
+
+            if (assignedPatientID == 0) {
                 return null;
             }
-            int assignedPatientID = results.getInt(1);
 
             ResultSet assignedPatientResults = statement.executeQuery("SELECT name FROM patients WHERE id = " + assignedPatientID);
 
@@ -59,10 +61,12 @@ public class AssignmentData extends Datasource {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement();
              ResultSet results = statement.executeQuery("SELECT assignedNurse FROM rooms WHERE roomNumber = " + roomNumber)) {
-            if (results.getInt(1) == 0) {
+
+            int assignedNurseID = results.getInt(1);
+
+            if (assignedNurseID == 0) {
                 return null;
             }
-            int assignedNurseID = results.getInt(1);
 
             ResultSet assignedNurseResults = statement.executeQuery("SELECT name FROM nurses WHERE id = " + assignedNurseID);
 
