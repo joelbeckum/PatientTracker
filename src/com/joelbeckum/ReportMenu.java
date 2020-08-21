@@ -14,6 +14,7 @@ public class ReportMenu {
         Scanner input = new Scanner(System.in);
         NurseData nurseData = new NurseData();
         ReportData reportData = new ReportData();
+        ReportPrinter reportPrinter = new ReportPrinter();
         boolean shouldExit = false;
         printReportMenu();
 
@@ -31,8 +32,7 @@ public class ReportMenu {
                 case 1:
                     try {
                         List<AvailableRoomsReportRow> availableRoomsList = reportData.getAvailableRooms();
-                        //delegate report ot a report printer
-                        System.out.println("placeholder text for room reports");
+                        reportPrinter.printAvailableRoomsReport(availableRoomsList);
                     } catch(IOException | SQLException e) {
                         System.out.println("Report unsuccessful:");
                         e.printStackTrace();
