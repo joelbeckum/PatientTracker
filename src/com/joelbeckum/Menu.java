@@ -7,12 +7,14 @@ public class Menu {
     private final RoomMenu roomMenu;
     private final PatientMenu patientMenu;
     private final AssignmentMenu assignmentMenu;
+    private final ReportMenu reportMenu;
 
     public Menu() {
         this.nurseMenu = new NurseMenu();
         this.roomMenu = new RoomMenu();
         this.patientMenu = new PatientMenu();
         this.assignmentMenu = new AssignmentMenu();
+        this.reportMenu = new ReportMenu();
     }
 
     public void launchUserMenu() {
@@ -49,7 +51,7 @@ public class Menu {
                     break;
 
                 case 5:
-                    System.out.println("Placeholder text for displaying available rooms");
+                    reportMenu.launchReportMenu();
                     break;
 
                 case 6:
@@ -62,8 +64,6 @@ public class Menu {
                     break;
             }
         }
-
-
     }
 
     private void printMenu() {
@@ -73,7 +73,7 @@ public class Menu {
         System.out.println("2 - to add, remove, rename, or display nurses in the database");
         System.out.println("3 - to add, remove, update, or display patients in the database");
         System.out.println("4 - to add, remove, update, or display rooms in the database");
-        System.out.println("5 - to display available rooms");
+        System.out.println("5 - to display available rooms and nurse assignments");
         System.out.println("6 - to exit the application");
     }
 }
