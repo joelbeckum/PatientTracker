@@ -13,7 +13,9 @@ public class NurseData extends Datasource {
     public List<Nurse> getNurses() throws IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement =  conn.createStatement();
-             ResultSet results = statement.executeQuery("SELECT id, name FROM nurses ORDER BY name ASC")) {
+             ResultSet results = statement.executeQuery("SELECT id, name " +
+                                                            "FROM nurses " +
+                                                            "ORDER BY name ASC")) {
 
             List<Nurse> nurses = new ArrayList<>();
 
@@ -35,7 +37,8 @@ public class NurseData extends Datasource {
 
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement()) {
-            statement.execute("INSERT INTO nurses(name) VALUES('" + name + "')");
+            statement.execute("INSERT INTO nurses(name) " +
+                                  "VALUES('" + name + "')");
         }
     }
 
@@ -46,7 +49,8 @@ public class NurseData extends Datasource {
 
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement()) {
-            statement.execute("DELETE FROM nurses WHERE name = '" + name + "'");
+            statement.execute("DELETE FROM nurses " +
+                                  "WHERE name = '" + name + "'");
         }
     }
 
@@ -57,14 +61,18 @@ public class NurseData extends Datasource {
 
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement()) {
-            statement.execute("UPDATE nurses SET name = '" + newName + "' WHERE name = '" + currentName + "'");
+            statement.execute("UPDATE nurses " +
+                                  "SET name = '" + newName + "' " +
+                                  "WHERE name = '" + currentName + "'");
         }
     }
 
     public boolean nurseExists(String name) throws IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement();
-             ResultSet results = statement.executeQuery("SELECT name FROM nurses WHERE name = '" + name + "'")) {
+             ResultSet results = statement.executeQuery("SELECT name " +
+                                                            "FROM nurses " +
+                                                            "WHERE name = '" + name + "'")) {
 
             return results.next();
         }

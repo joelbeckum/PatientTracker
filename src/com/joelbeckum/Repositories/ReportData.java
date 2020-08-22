@@ -9,10 +9,10 @@ import java.util.List;
 
 public class ReportData extends Datasource {
     public List<AvailableRoomsReportRow> getAvailableRooms() throws IOException, SQLException {
-        String query = "SELECT roomNumber, name \n" +
-                "FROM rooms\n" +
+        String query = "SELECT roomNumber, name " +
+                "FROM rooms " +
                 "LEFT JOIN nurses " +
-                "ON nurses.id = rooms.assignedNurse\n" +
+                "ON nurses.id = rooms.assignedNurse " +
                 "WHERE assignedPatient is null";
 
         try (Connection conn = DriverManager.getConnection(getConnectionString());

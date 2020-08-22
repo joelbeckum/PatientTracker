@@ -14,7 +14,9 @@ public class RoomData extends Datasource {
     public List<Room> getRooms() throws IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement =  conn.createStatement();
-             ResultSet results = statement.executeQuery("SELECT id, roomNumber FROM rooms ORDER BY roomNumber ASC")) {
+             ResultSet results = statement.executeQuery("SELECT id, roomNumber " +
+                                                            "FROM rooms " +
+                                                            "ORDER BY roomNumber ASC")) {
 
             List<Room> rooms = new ArrayList<>();
 
@@ -47,14 +49,17 @@ public class RoomData extends Datasource {
 
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement()) {
-            statement.execute("DELETE FROM rooms WHERE roomNumber = " + roomNumber);
+            statement.execute("DELETE FROM rooms " +
+                                  "WHERE roomNumber = " + roomNumber);
         }
     }
 
     public boolean roomExists(int roomNumber) throws IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement();
-             ResultSet results = statement.executeQuery("SELECT roomNumber FROM rooms WHERE roomNumber = " + roomNumber)) {
+             ResultSet results = statement.executeQuery("SELECT roomNumber " +
+                                                            "FROM rooms " +
+                                                            "WHERE roomNumber = " + roomNumber)) {
 
             return results.next();
         }

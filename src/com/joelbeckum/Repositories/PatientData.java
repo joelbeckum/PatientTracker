@@ -14,7 +14,9 @@ public class PatientData extends Datasource {
     public List<Patient> getPatients() throws IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement();
-             ResultSet results = statement.executeQuery("SELECT id, name, prescriptions, treatments FROM patients ORDER BY name ASC")) {
+             ResultSet results = statement.executeQuery("SELECT id, name, prescriptions, treatments " +
+                                                            "FROM patients " +
+                                                            "ORDER BY name ASC")) {
 
             List<Patient> patients = new ArrayList<>();
 
@@ -36,7 +38,8 @@ public class PatientData extends Datasource {
 
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement()) {
-            statement.execute("INSERT INTO patients(name, prescriptions, treatments) VALUES('" + name + "', '" + prescription + "', '" + treatment + "')");
+            statement.execute("INSERT INTO patients(name, prescriptions, treatments) " +
+                                  "VALUES('" + name + "', '" + prescription + "', '" + treatment + "')");
         }
     }
 
@@ -47,7 +50,8 @@ public class PatientData extends Datasource {
 
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement()) {
-            statement.execute("DELETE FROM patients WHERE name = '" + name + "'");
+            statement.execute("DELETE FROM patients " +
+                                  "WHERE name = '" + name + "'");
         }
     }
 
@@ -58,14 +62,18 @@ public class PatientData extends Datasource {
 
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement()) {
-            statement.execute("UPDATE patients SET name = '" + newName + "', prescriptions = '" + prescription + "', treatments = '" + treatment + "' WHERE name = '" + currentName + "'");
+            statement.execute("UPDATE patients " +
+                                  "SET name = '" + newName + "', prescriptions = '" + prescription + "', treatments = '" + treatment + "' " +
+                                  "WHERE name = '" + currentName + "'");
         }
     }
 
     public boolean patientExists(String name) throws IOException, SQLException {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement();
-             ResultSet results = statement.executeQuery("SELECT name FROM patients WHERE name = '" + name + "'")) {
+             ResultSet results = statement.executeQuery("SELECT name " +
+                                                            "FROM patients " +
+                                                            "WHERE name = '" + name + "'")) {
 
             return results.next();
         }
