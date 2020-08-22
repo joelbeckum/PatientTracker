@@ -26,8 +26,6 @@ public class RoomData extends Datasource {
                 rooms.add(room);
             }
             return rooms;
-        } catch(IOException | SQLException e) {
-            throw e;
         }
     }
 
@@ -39,8 +37,6 @@ public class RoomData extends Datasource {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement()) {
             statement.execute("INSERT INTO rooms(roomNumber) Values(" + roomNumber + ")");
-        } catch(IOException | SQLException e) {
-            throw e;
         }
     }
 
@@ -52,8 +48,6 @@ public class RoomData extends Datasource {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement()) {
             statement.execute("DELETE FROM rooms WHERE roomNumber = " + roomNumber);
-        } catch(IOException | SQLException e) {
-            throw e;
         }
     }
 
@@ -63,8 +57,6 @@ public class RoomData extends Datasource {
              ResultSet results = statement.executeQuery("SELECT roomNumber FROM rooms WHERE roomNumber = " + roomNumber)) {
 
             return results.next();
-        } catch(IOException | SQLException e) {
-            throw e;
         }
     }
 }

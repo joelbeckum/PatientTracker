@@ -25,8 +25,6 @@ public class NurseData extends Datasource {
                 nurses.add(nurse);
             }
             return nurses;
-        } catch(IOException | SQLException e) {
-            throw e;
         }
     }
 
@@ -38,8 +36,6 @@ public class NurseData extends Datasource {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement()) {
             statement.execute("INSERT INTO nurses(name) VALUES('" + name + "')");
-        } catch (IOException | SQLException e) {
-            throw e;
         }
     }
 
@@ -51,8 +47,6 @@ public class NurseData extends Datasource {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement()) {
             statement.execute("DELETE FROM nurses WHERE name = '" + name + "'");
-        } catch(IOException | SQLException e) {
-            throw e;
         }
     }
 
@@ -64,8 +58,6 @@ public class NurseData extends Datasource {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement()) {
             statement.execute("UPDATE nurses SET name = '" + newName + "' WHERE name = '" + currentName + "'");
-        } catch(IOException | SQLException e) {
-            throw e;
         }
     }
 
@@ -75,8 +67,6 @@ public class NurseData extends Datasource {
              ResultSet results = statement.executeQuery("SELECT name FROM nurses WHERE name = '" + name + "'")) {
 
             return results.next();
-        } catch(IOException | SQLException e) {
-            throw e;
         }
     }
 }

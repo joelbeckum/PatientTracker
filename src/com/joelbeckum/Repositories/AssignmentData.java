@@ -11,8 +11,6 @@ public class AssignmentData extends Datasource {
              ResultSet results = statement.executeQuery("SELECT id FROM patients WHERE name = '" + patientName + "'")) {
             int patientID = results.getInt(1);
             statement.execute("UPDATE rooms SET assignedPatient = " + patientID + " WHERE roomNumber = " + roomNumber);
-        } catch(IOException | SQLException e) {
-            throw e;
         }
     }
 
@@ -32,8 +30,6 @@ public class AssignmentData extends Datasource {
             String assignedPatient = assignedPatientResults.getString(1);
 
             return assignedPatient;
-        } catch(IOException | SQLException e) {
-            throw e;
         }
     }
 
@@ -41,8 +37,6 @@ public class AssignmentData extends Datasource {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement()) {
             statement.execute("UPDATE rooms SET assignedPatient = NULL WHERE roomNumber = " + roomNumber);
-        } catch(IOException | SQLException e) {
-            throw e;
         }
     }
 
@@ -52,8 +46,6 @@ public class AssignmentData extends Datasource {
              ResultSet results = statement.executeQuery("SELECT id FROM nurses WHERE name = '" + nurseName + "'")) {
             int nurseID = results.getInt(1);
             statement.execute("UPDATE rooms SET assignedNurse = " + nurseID + " WHERE roomNumber = " + roomNumber);
-        } catch(IOException | SQLException e) {
-            throw e;
         }
     }
 
@@ -73,8 +65,6 @@ public class AssignmentData extends Datasource {
             String assignedNurse = assignedNurseResults.getString(1);
 
             return assignedNurse;
-        } catch(IOException | SQLException e) {
-            throw e;
         }
     }
 
@@ -82,8 +72,6 @@ public class AssignmentData extends Datasource {
         try (Connection conn = DriverManager.getConnection(getConnectionString());
              Statement statement = conn.createStatement()) {
             statement.execute("UPDATE rooms SET assignedNurse = NULL WHERE roomNumber = " + roomNumber);
-        } catch(IOException | SQLException e) {
-            throw e;
         }
     }
 

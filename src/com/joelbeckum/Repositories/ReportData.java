@@ -11,7 +11,7 @@ public class ReportData extends Datasource {
     public List<AvailableRoomsReportRow> getAvailableRooms() throws IOException, SQLException {
         String query = "SELECT roomNumber, name \n" +
                 "FROM rooms\n" +
-                "INNER JOIN nurses " +
+                "LEFT JOIN nurses " +
                 "ON nurses.id = rooms.assignedNurse\n" +
                 "WHERE assignedPatient is null";
 
@@ -29,8 +29,6 @@ public class ReportData extends Datasource {
                 availableRooms.add(row);
             }
             return availableRooms;
-        } catch(IOException | SQLException e) {
-            throw e;
         }
     }
 }

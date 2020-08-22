@@ -14,7 +14,13 @@ public class ReportPrinter {
         System.out.println("Available room:\tAssigned nurse:");
 
         for (AvailableRoomsReportRow row : availableRoomsList) {
-            System.out.println("Room\t" + row.getRoomNumber() + "\t-\t" + row.getAssignedNurse());
+
+            String formattedNurseName = row.getAssignedNurse();
+            if(formattedNurseName == null) {
+                formattedNurseName = "No nurse assigned";
+            }
+
+            System.out.println("Room\t" + row.getRoomNumber() + "\t-\t" + formattedNurseName);
         }
     }
 }
