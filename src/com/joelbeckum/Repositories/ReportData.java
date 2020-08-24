@@ -34,7 +34,7 @@ public class ReportData extends Datasource {
     }
 
     public List<NurseCaseloadReportRow> getNurseCaseload(String nurse) throws IOException, SQLException {
-        String query = "SELECT roomNumber, assignedNurse, assignedPatient " +
+        String query = "SELECT rooms.roomNumber, rooms.assignedNurse, patients.name " +
                 "FROM rooms " +
                 "INNER JOIN nurses " +
                 "ON nurses.id = rooms.assignedNurse " +
