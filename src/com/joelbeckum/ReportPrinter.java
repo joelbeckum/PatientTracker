@@ -23,4 +23,24 @@ public class ReportPrinter {
             System.out.println("Room\t" + row.getRoomNumber() + "\t-\t" + formattedNurseName);
         }
     }
+
+    public void printNurseCaseloadReport(String nurseName, List<NurseCaseloadReportRow> caseloadList) {
+
+        if(caseloadList.isEmpty()) {
+            System.out.println(nurseName + " is not currently assigned to any cases");
+            return;
+        }
+
+        System.out.println(nurseName + "'s current case assignments:");
+
+        for (NurseCaseloadReportRow row : caseloadList) {
+
+            String formattedPatientName = row.getAssignedPatient();
+            if(formattedPatientName == null) {
+                formattedPatientName = "No patient assigned";
+            }
+
+            System.out.println("Room " + row.getAssignedRoom() + "\t-\t" + formattedPatientName);
+        }
+    }
 }

@@ -40,7 +40,20 @@ public class ReportMenu {
                     break;
 
                 case 2:
-                    System.out.println("placeholder text for caseload reports");
+                    try {
+                        System.out.println("Enter nurse name");
+                        String nurseName = input.nextLine();
+                        if(!nurseData.nurseExists(nurseName)) {
+                            System.out.println("Action unsuccessful: " + nurseName + " doesn't exist");
+                            break;
+                        }
+
+                        List<NurseCaseloadReportRow> nurseCaseloadList = reportData.getNurseCaseload(nurseName);
+                        reportPrinter.printNurseCaseloadReport(nurseName, nurseCaseloadList);
+                    } catch(IOException | SQLException e) {
+                        System.out.println("Action unsuccessful: ");
+                        e.printStackTrace();
+                    }
                     break;
 
                 case 3:
